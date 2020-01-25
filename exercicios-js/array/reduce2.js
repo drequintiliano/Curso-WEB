@@ -11,4 +11,7 @@ console.log(alunos.map(a => a.bolsista).reduce(todosBolsistas));
 
 //algum aluno é bolsista?
 const algumBolsista = (resultado, bolsista) => resultado || bolsista
+console.log(algumBolsista);
+console.log(alunos.map(a => a.bolsista));
+
 console.log(alunos.map(a => a.bolsista).reduce(algumBolsista));
