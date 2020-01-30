@@ -20,3 +20,6 @@ axios.get(url).then(response => {
     console.log(resultado);
 
 })
+
+
+// dentro do arquivo package.json no objeto "script" voce pode definir comandos encadeados, criar scripts para executar tarefas automatizadas, gerar arquivos, etc...
