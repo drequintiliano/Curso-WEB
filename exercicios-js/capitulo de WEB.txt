@@ -1,0 +1,231 @@
+TCP / IP
+protocolo usa um padrão de projeto chamado layers
+
+CAMADAS - responsabilidades divididas, a camada de cima usa a camada de baixo para fazer suas obrigações
+APLICAÇÃO
+HTTP, FTP, SMTP, Comunicação Processo-a-Processo, Número da porta
+
+TRANSPORTE
+TCP Transmission Control Protocol (Confiavel), UDP (Melhor esforço) DNS usa UDP
+comunicação Host-a-Host, confiabilidade, integridade
+
+INTERNET
+Ip - Internet Protocol, endereço IP, Conexão entre redes, transferencias de pacotes
+
+REDE/FISICA
+Ethernet, wifi, Mac adress, Fisica(Hardware) e Enlace(Software)
+
+
+
+Anatomia do IPV4 - parte do ip representa uma rede, e que parte representa um host
+
+classe A -  192.168.100.130
+192 - REDE
+168.100.230 - HOST
+Mascara de Sub Rede - 255.0.0.0
+
+classe B - 192.168.100.230
+192.168 - REDE
+100.230 - HOST
+Mascara de sub Rede - 255.255.0.0
+
+classe C - 192.168.100.230 - uma rede com maximo de 255 host/maquinas dentro de uma rede classe C
+192.168.100 - REDE
+230 - HOST
+255.255.25.0
+
+
+
+Conceito de porta
+
+comp1					comp2	------> node 8080
+10.85.0.4				10.85.0.5
+	comunicação de processo a processo
+
+http://1085.0.5:8080
+
+
+---------------------------------------------------------------------------------------------------------------------------
+---------------------------------------------------------------------------------------------------------------------------
+
+
+Protocolo HTTP -  camada de aplicação
+
+HyperText
+linguagem de marcação de hiper texto
+documento HTML faz referencia a outros 
+
+protocolo Stateless - não tem estado, toda conexão é como se fosse a primeira vez
+cliente-servidor -  faz uma requisição e recebe uma resposta 
+TCP/Ip 
+retorna conteudos HTML, CSS, JS, mídias...
+
+1- usuario informa a URL
+2- browser gera a requisição
+    GET / HTTP /1.1
+    HOST: www.google.com.br
+
+3- Servidor Wwb gera a resposta
+HTTP/1.1 200 ok
+content-Type: text/html; charset=UFT-8
+
+4. Browser exibe a página
+
+Métodos do HTTP
+
+GET - url + parametros da requisição 
+POST - 
+PUT
+DELETE
+TRACE
+OPTIONS
+CONNECT
+HEAD
+
+Requisição e resposta
+
+CLIENTE     -----------------------------------> URL + Params       SERVIDOR
+            html, CSS, JS, etc <----------------------------- 
+
+
+Grupo de Status do HTTP
+
+- 1XX - Informação
+- 2XX - Sucesso
+- 3XX - Redirecionamento
+- 4XX - Erro no cliente
+- 5XX - Erro no servidor
+
+
+---------------------------------------------------------------------------------------------------------------------------
+---------------------------------------------------------------------------------------------------------------------------
+
+Serdor WEB
+
+Apache, Tomcat, NodeJS, Nginx, MicrosoftISS, SpringBoot, JBoss
+NODE - uma unica thread trabalhando chamada de eventloop que dispacha isso para um pull de threads para pegar a parte de comunicação assincrona
+
+WEB e DNS
+Web Server - virtual hosting
+cluster - conjunto de computadores que se conhecem entre si para atender um site maior 
+seu conteudo estatico colocar num servidor externo CDN - content delivery network, especializado em entregar serviços estaticos (imagens, html, css, etc)
+separar da sua instalação em produção, para seu servidor ter menos sobrecarga
+
+Web Stack - Linguagem, Web Server, DB, Sistema Operacional
+
+
+---------------------------------------------------------------------------------------------------------------------------
+---------------------------------------------------------------------------------------------------------------------------
+
+Client Side - Server Side
+
+primeira arquitetura distribuida em ambiente de rede, mainframe - tudo centralizado no mainframe
+segunda era - client servidor (client-server) cliente, rico - replicar aplicação desktop, distribuição de uma nova versão
+tereira era - web - serve - side - o browser serve apenas como um terminal "burro" - o conteudo é gerado do lado do servidor centraliza todas as responsabilidades
+front-end + services - SPA single page aplication - servidor passa a ter serviços web REST gerando dados no formato JSON 
+aplicação gerado no lado do cliente, dados vindo no formato servidor. 
+
+
+
+---------------------------------------------------------------------------------------------------------------------------
+---------------------------------------------------------------------------------------------------------------------------
+
+Conteudo Estatico vs Dinamico
+Estatico - apenas lido os arquivos e devolvido - servidor web lendo arquivos estaticos
+Dinamico - conteudo gerado a partir de um código - gera o html que é mandado para o browser 
+
+
+---------------------------------------------------------------------------------------------------------------------------
+---------------------------------------------------------------------------------------------------------------------------
+
+DNS
+
+Servidor DNS - traduz os nomes de dominio em endereço de IP e mais...
+subdominios dinamicos para clientes 
+
+DNS funciona sobre o protocolo UDP - user datagram protocol, na porta 53
+
+Funcionamento basico do DNS
+1- usuario informa o endereço no browser
+2- computador enva uma consulta dns para o servidor
+3- o servidor responde com o endereço IP
+4- computador acessa o servidor a partir do IP obtido
+
+Busca Recursiva 
+DNS client --------------> DNS Server 1 -----------------> DNS Server 2 
+                                      <----------------- 
+vai fazedo um casting pra retornar seu endereço
+
+Busca Iterativa
+DNS cliente -------------> DNS Server 1
+            <-------------
+            passa referencia
+            -------------> DNS Server 2
+            <-------------
+
+DNS Records - Registros DNS
+A - IPV4
+AAAA - IPV6
+MX - Servidor Email
+NS - Servidor DNS 
+CNAME - Canonical Name (Apelido)
+
+
+---------------------------------------------------------------------------------------------------------------------------
+---------------------------------------------------------------------------------------------------------------------------
+
+Protocolo HTTPS (Seguro)
+
+HTTP + TLS - Transport Layer Security (Protocol SSLV4) - versão que usamos hoje
+HTTP + SSL - Secure Sockets Layer Protocol 
+Certificado <> Protocolo
+
+Dados criptografados usando os protocolos TLS ou SSL 
+Protege contra interceptação (MITM)
+Criptografa todas as informações: URL, Cookies e headers
+Usa certificados digitais
+
+Autoridades Certificadoras - LETS ENCRYPT para habiliar o HTTPS no servidor 
+instalar um certirficado do lado do sevidor 
+
+
+
+
+---------------------------------------------------------------------------------------------------------------------------
+---------------------------------------------------------------------------------------------------------------------------
+
+WEB service
+
+SOAP - Simple Object Access Protocol (SOAP) - WSDL, RPC, XML, Burocrático
+REST - Representational State Transfer -  JSON, HTTP, Simples
+        RESTFULL quer que voce segue a convenção estabelecida pelo REST, aderente a uma serie de especificações
+        usa métods do HTTP para fazer uma requisição 
+
+Conveção do Restful  - gira em torno do CRUD, cadastro
+
+                (Requisição)
+URL             Método          Descrição
+/clientes       POST            Inserir novo cliente
+/clientes       GET             Obtém todos clientes - por padrão retorna os primeiros 20 registros 
+/clientes/36    GET             Obtém o cliente cujo ID é 36
+/clientes/12    PUT             Atualiza cliente 12 
+/clientes/41    DELETE          Exclui cliente 41
+
+
+
+Escolha de arquitetura
+
+SOA - ESB, barramento 
+Micro Service - micro serviços, fluxo da aplicação
+
+---------------------------------------------------------------------------------------------------------------------------
+---------------------------------------------------------------------------------------------------------------------------
+
+Computação em Nuvem
+
+AWS - Amazon Web Services  
+
+
+
+
+
